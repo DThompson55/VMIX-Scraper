@@ -77,7 +77,9 @@ function selfTest(){
 	console.log("CONNECTING....");
 	vMix.connect( (err,ctx)=> {
 		if (err){
-			console.log(err);
+			console.log(ctx.vMixStatus);
+			console.log("Make sure you started VMIX before running this app")
+
 		} else {
 			console.log("vMix Status",ctx.vMixStatus);
 			updateGSheet(sheetID, ctx.vMixCfg)
