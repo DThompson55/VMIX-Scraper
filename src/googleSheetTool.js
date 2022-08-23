@@ -60,7 +60,7 @@ const gSheet = new GoogleSpreadsheet(sheetGUID);
 	}
 
 	await vmixcfgSheet.saveUpdatedCells(); // save all updates in one call
-  console.log("Done!")
+	console.log("",max," rows updated...","Done!")
 }
 
 function selfTest(){
@@ -70,9 +70,15 @@ function selfTest(){
 		console.log ("\tvmix-scraper-account@vmix-scraper.iam.gserviceaccount.com")
 		return;
 	}
-
-
 	const words = process.argv[2].split('/');
+	if (words.length != 7){
+		console.log ("Did not recognize that URL. Copy/Paste it from your browser. It should look similar to this");
+		console.log ("https://docs.google.com/spreadsheets/d/1abwU_-dk4q9w_PWe17Z87_8Tvd-c9RtQIuwJrImxNxQ/edit#gid=0");
+		return;
+	}
+
+
+	
 	var sheetID = words[5];
 	console.log("CONNECTING....");
 	vMix.connect( (err,ctx)=> {
