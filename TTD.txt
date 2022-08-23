@@ -1,0 +1,29 @@
+workflow -
+Copy spreadsheet URL and paste in application
+
+Hmmm... does the spreadsheet have to be shared with the app URL first?
+
+SHOW The spreadsheet name.
+
+app opens spreadsheet, determines if it is VMIX compatible
+there are two sheets, and we get their names,
+
+sheet 1 has rows/columns appropriate to VMIX
+Col A has forumla that references Col B
+Col B has validation that uses 2nd sheet
+
+2nd sheet has two cols with VMIX names, and are sorted
+
+
+If Col A is not set, there's nothing we can do yet.
+If Col B is not set, there's nothing we can do yet.
+If Sheet 2 is not set, ie has no columns, we can ask to add them
+If Sheet 2 is has columns but wrong names we can ask to add them
+If Sheet 2 is has columns but not sorted we can ask to add them
+If Sheet 2 is has columns but doesn't match VMIX we can ask to add them
+
+OR we can automatically add the each time it is run, which is good enough for 0.1
+Just overwrite whatever is in sheet 2, regardless of name.
+
+So this is really VMIX helper, but instead of an excel file, it takes a URL.
+
