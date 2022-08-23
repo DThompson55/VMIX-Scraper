@@ -5,46 +5,15 @@
   "description": "An Electron based application that imports current VMIX settings and stores them to google spreadsheet.",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "start": "node src/googleSheetTool.js",
+    "test":  "node test/tester.js"
   },
   "keywords": [],
   "author": "danielthompson",
   "license": "MIT",
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "vmix-scraper"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ]
-    }
-  },
   "dependencies": {
     "axios": "^0.26.1",
     "electron-squirrel-startup": "^1.0.0",
-    "exceljs": "^4.3.0",
     "google-spreadsheet": "^3.3.0",
     "xml2js": "^0.4.23"
   },

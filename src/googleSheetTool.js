@@ -12,21 +12,27 @@ const gSheet = new GoogleSpreadsheet(sheetGUID);
 	  private_key: "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaMZdJv/2gZqoL\nwrZulDTX283ySr4Dw/MNtZOjGYZEAgml3aWSiOQWYaJRudRDuDzTFtHEu06P/8rG\nJZpIJkVTK5EwAW3eAkruvu4c7PXpJ4aLccKsaXhit9Ls4S0Hm8CzYnH045vVbpQj\nCw8QiRTVybaEnAce7za9eyth0n0QcKj6M/gZkfqzpWovyFt9a+AocbSEr6nFgyId\n3A8gDXR43o6KpwA6jFJ3si9cqy7WAQKUJQF3ZDAhTXaHxYya7TtNceMPqPALbBDw\nCwvFnGFkSVvtjYLlBcZuJyDkYt+yqYFx4vToXp3fSply2Ijhsif8nUwRRyxkg3XD\nAvsQfdQTAgMBAAECggEATFP4xpXhFZGUftS4mOpDqhd8bfvziMGtbuhMI0w0ienk\nkh99Ykt87s9sxwYo2R/EN1vOOfIEQ5+JwdM5q2+n5LZi7dYyJu3KZMZp6biDNfLb\nwEAlh8bFlFMV+EO1SuoTeS1BDBfrVbh/Hdsqg/BQV5FexfkHDK1GCvbhcDEACxWY\ncXazvTn5ULKrfry7tVtoRefNgaY0fjxQJHpZTFSit7g3XzimpRlN3xnccTNJZ4LI\neD8sVVutS5Sy2sCL/L7dSjZdXWhshXq80uCpo4a+Z1nm8viaCbq2e+L8cK2QIgND\n/Nc8hgDfjuH7hEOxXXhsqQf5W6e9bmNqgXP8VlqjUQKBgQD8UPLce/mIF9hr3vuR\n/6t++cEgBDAXHCQr/n5Fdzfox/d4ylhpzwYjJej9wvnrwDJUmpKiVIo2KaVgIPea\ndi+qq3e6nNDXIJyF9S5c4QV1yxbB58MLLaTP8aN3QNWEwA0nq/XuNmR5gkJn6mC7\nUSIiFoFiV4/Vh0qHe27tGaCtpQKBgQDdYRtaJeUy/1w2BSJWuOu1kCYfr4MOImIK\nAxwnhC/Y9VHYdEOIzMLrRGOm5v0vwitQ4W8fxbOZ/Vn8MGidMp8240grwaLmzb3l\nix1ly7qb2OMduzRhZvj6s1jY4FeAhB16fUlEdCUA4SKbz8654GeISItqek0ilPG5\nXRoCMPC9VwKBgQCNVi7ksRGTWYAi1NJo8yW2x+KVs6LYnyvn9PP4p5KK89C9OeOS\nyaPvdmHwHBLxK0VGPRvckKynMGbx1SW9wWxsFwbHYuZdS2hCZZgl8OqlFDFYRyHr\nlhLXZM0jlQ7GAOqdiWcGnDNmGUBng1PSOd176M1rMA9jFhj6kXsOl6d4/QKBgAmx\n1PbPrgfbsvgSpXxSwM/Erka48u5NhymVFUiNu2Ku65SlEsgM34RaDFskxnWu9SKn\nnKwxhjn6JFSs8gfgTaSjs2dnJXEiFWzV+MWadGOazedhaVvSnJit/fgRawOPxZK1\npd2/kFdHhLJ6GT1+nEoVkzVogbQ//Y32i8sIxaIlAoGBAJc862lnGqnguqNnOfp4\nXPRaG6Q07uWGVmLr6xeFXWTYMFBgd3kPpYE1YsWEcoWSdPCcVPXoJh5cwIfPb9Jt\njIrW5HNx6IJOKnILvbT00rjvxbjUxQJJ9u3uGhSBj3ikoOxQzleNY6r8B3rMNSC1\ng46IKON/KInNYhmdZDxgC7zB\n-----END PRIVATE KEY-----\n",
 	});
 
+	console.log("Connecting to google sheet",sheetGUID)
 	try {
 	await gSheet.loadInfo(); // loads document properties and worksheets
 	} catch (e) {
-		console.log(e.response.data)
+		console.log("error:",e.response.data.error)
 		if (e.response.data.error.code == 403){
-			console.log ("Make sure you share your google sheet with ","vmix-scraper-account@vmix-scraper.iam.gserviceaccount.com")
+			console.log ("Make sure you share your google sheet with this email address");
+			console.log("\tvmix-scraper-account@vmix-scraper.iam.gserviceaccount.com")
 		}
 		if (e.response.data.error.code == 404){
-			console.log ("Make sure you share you copied the URL of your google sheet properly ")
+			console.log ("Make sure you share you copied the URL of your google-spreadsheet as the last commandline argument")
+	    console.log ("Open your google sheet in a browser")
+			console.log ("Copy the entire URL from the browser")
+			console.log ("Paste the URL on the commandline after 'npm start '")
 		}
 		return
 	}
 
 	const scenesSheet  = gSheet.sheetsByIndex[0]; // or sheetsByIndex[] or doc.sheetsById[id] or doc.sheetsByTitle[title]
 	const vmixcfgSheet = gSheet.sheetsByIndex[1];
+	console.log("Connected to google sheet")
 	console.log("Sheet 1 is ",scenesSheet.title)
 	console.log("Sheet 2 is ",vmixcfgSheet.title)
 
@@ -40,11 +46,11 @@ const gSheet = new GoogleSpreadsheet(sheetGUID);
 
   var max = vMixCfg.vmix.inputs[0].input.length
   var range ='A1:B'+(vmixcfgSheet.rowCount)
-	console.log("Availble cells for '",vmixcfgSheet.title,"' is",range)
+	//console.log("Availble cells for '",vmixcfgSheet.title,"' is",range)
 	vmixcfgSheet.clear(range) 
 
 	await vmixcfgSheet.loadCells(range); // loads range of cells into local cache - DOES NOT RETURN THE CELLS
-	console.log("cell stats = ",vmixcfgSheet.cellStats); // total cells, loaded, how many non-empty
+	//console.log("cell stats = ",vmixcfgSheet.cellStats); // total cells, loaded, how many non-empty
 	const a = vmixcfgSheet.getCell(0, 0); // access cells using a zero-based index
 	const b = vmixcfgSheet.getCell(0, 1); // access cells using a zero-based index
 	a.value = "shortTitle"
@@ -57,15 +63,16 @@ const gSheet = new GoogleSpreadsheet(sheetGUID);
 //		console.log(i,a.value, b.value, sortedList[i] )
 		a.value = sortedList[i][0]
 		b.value = sortedList[i][1]
+		process.stdout.write(".");
 	}
 
 	await vmixcfgSheet.saveUpdatedCells(); // save all updates in one call
-	console.log("",max," rows updated...","Done!")
+	console.log("\n"+max,"rows updated.")
 }
 
 function selfTest(){
 	if (process.argv.length != 3){
-		console.log ("Usage: node googleSheetTool.js <URL of your VMix spreadsheet>")
+		console.log ("Usage: npm start <URL of your VMix spreadsheet>")
 		console.log ("Your google sheet must be 'shared' with the following email address:");
 		console.log ("\tvmix-scraper-account@vmix-scraper.iam.gserviceaccount.com")
 		return;
@@ -80,14 +87,14 @@ function selfTest(){
 
 	
 	var sheetID = words[5];
-	console.log("CONNECTING....");
+	console.log("Connecting to vMix...");
 	vMix.connect( (err,ctx)=> {
 		if (err){
 			console.log(ctx.vMixStatus);
 			console.log("Make sure you started VMIX before running this app")
 
 		} else {
-			console.log("vMix Status",ctx.vMixStatus);
+			console.log("vMix is",ctx.vMixStatus);
 			updateGSheet(sheetID, ctx.vMixCfg)
 		}
 	})
