@@ -6,7 +6,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/googleSheetTool.js",
-    "test":  "node test/tester.js"
+    "test":  "node test/tester.js",
+    "demo":  "node src/googleSheetTool.js https://docs.google.com/spreadsheets/d/13xECiBV6v-LLpTymAqeXwfklqHTHWoMlASFNHXhBSiM/edit#gid=0"
   },
   "keywords": [],
   "author": "danielthompson",

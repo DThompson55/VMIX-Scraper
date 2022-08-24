@@ -3,6 +3,8 @@
 A set of utilities to streamline running VMIX broadcasts
 Scraper opens a google spreadsheet, and copies / update the current VMIX configuration to it's reference tab.
 
+These utilies require a google cloud service account. Create and download a service account json key file. Rename it credentials.json. Place it in the root folder of this project, at the same level as the package.json. It will give you a service email address that is used for sharing your google spreadsheet with these utilities.
+
 scraper - npm start &lt;google spreadsheet url&gt;
 
 Scraper gathers the input shortTitle and input number entries from the vMix configuration running on the host machine and writes them to the 2nd tab of the google spreadsheet. This provides validation data for entries in the first tab, dropdown lists of only the available inputs. It also provides VLOOKUP data ensuring that the input number on the first tab always matches the selected shortName. This is especially important if you move vMix inputs around, which will renumber them.
