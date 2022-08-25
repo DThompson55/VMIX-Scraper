@@ -1,24 +1,13 @@
 A set of utilities to streamline configuring and running vMix broadcasts. vMix only runs on Windows platforms, but these tools were developed on MacOS.
 
-#### vMix-Scraper
+### vMix-Scraper
 Scraper copies / updates parts of the current vMix configuration to a Google spreadsheet where it information can be used for data validations and with other forulae from other spreadsheets.
-#### vMix2File
+### vMix2File
 vMix2File copies parts of the current vMix configuration to a file in CSV format, where you can copy it to any other workbook, providing information can be used for data validations and with other forulae from other spreadsheets.
-#### tester
+### tester
 stands up a mock vMix server that can be used to test the other utilities
 
 # mVixScraper
-
-First, start vMix
-
-Starting on any platform
-on Windows
-&nbsp;scrape vmix
-or on MacOs (which only works for testing)
-&nbsp;./scrape.sh &lt;google spreadsheet url&gt;
-or 
-&nbsp;npm start &lt;google spreadsheet url&gt;
-
 
 vmix-scraper gathers the 'input shortTitle' and 'input number' entries from the vMix configuration running on the host machine and writes them to a google spreadsheet. This provides validation data for entries from other spreadsheets and dropdown lists of the available VMIX inputs. It also provides VLOOKUP data ensuring that input numbers always matches the selected shortName. This is especially important if you move vMix inputs around, which will renumber them.
 
@@ -30,7 +19,9 @@ vmix-scraper gathers the 'input shortTitle' and 'input number' entries from the 
 1. Make sure vMix is running
 2. Open a Windows command line prompt (cmd)
 3. Type “cd <your install directory>” (cd \users\VirtualTeam\vmix-scraper)
-4. Type scrape vmix
+4. Type scrape 
+or 
+4. Type npm run 2googlesheet <url of your google sheet>
 
 ---
 ## Advanced
@@ -60,15 +51,50 @@ vmix-scraper gathers the 'input shortTitle' and 'input number' entries from the 
 ### Configuring Windows shortcut
 1) Configure a windows shortcut...
 
+
+# mVixScraper
+
+First, start vMix
+
+vmix-scraper gathers the 'input shortTitle' and 'input number' entries from the vMix configuration running on the host machine and writes them to a local file. This provides validation data for entries from other spreadsheets and dropdown lists of the available VMIX inputs. It also provides VLOOKUP data ensuring that input numbers always matches the selected shortName. This is especially important if you move vMix inputs around, which will renumber them.
+
+### Steps for using vmix2file
+1. Make sure vMix is running
+2. Find VMIX-2File on the desktop, and double click to run
+
+### Alternative Steps for using vmix-scraper
+1. Make sure vMix is running
+2. Open a Windows command line prompt (cmd)
+3. Type “cd <your install directory>” (cd \users\VirtualTeam\vmix-scraper)
+4. Type vmix2file <filename>
+	where filename is the output file where you want to store vMix data in CSV format
+alternatively
+4. Type npm run 2file <filename>
+	
+---
+## Advanced
+
+### Steps for configuring vmix2File
+1. Start vMix (or alternatively the tester packaged with these utilities)
+4. Open <your install directory>\scrape2File.bat” in a text editor, change the output file name to one of your choosing
+	Close the text editor
+
+### Configuring data validation in a Service Plan
+see instructions for vmix-scraper
+
+### Configuring camera shot numbers in a Service Plan
+see instructions for vmix-scraper
+
+### Configurating the 'Camera Shot Pulldown' to sync with reference data
+see instructions for vmix-scraper
+
+### Configuring Windows shortcut
+Configure a windows shortcut...
+
+----
+
+
 # tester - npm test 
 
 Starts a simulated vMix environment on port 8088 on the host machine, making it possible to test the vmix-scraper utility without actually running vMix. vMix can only be hosted on Windows machines, whereas tester can run anywhere that runs npm. When you query the vMix API with no parameters it returns its current configuration as an XML payload. Tester simulates a connection to an actual vMix server, sending an archived vMix configuration.
-
-
-# TTD
-- [x] 1) Test basic concept, can we save the vMix configuration to a csv file
-- [x] 2) Swap out csv for a google spreadsheet
-- [x] 3) Fix security hole
-- [x] 4) Make it easier to copy/paste the google sheet URL into the utility
-- [ ] 5) How to provide a sample google spreadsheet in the documentation?
 
