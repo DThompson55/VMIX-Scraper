@@ -5,9 +5,9 @@
   "description": "An Electron based application that imports current VMIX settings and stores them to google spreadsheet.",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/googleSheetTool.js",
     "test":  "node test/tester.js",
-    "demo":  "node src/googleSheetTool.js https://docs.google.com/spreadsheets/d/13xECiBV6v-LLpTymAqeXwfklqHTHWoMlASFNHXhBSiM/edit#gid=0"
+    "2googlesheet": "node src/googleSheetTool.js",
+    "2file":  "node src/vMix2File.js"
   },
   "keywords": [],
   "author": "danielthompson",
