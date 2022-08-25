@@ -1,7 +1,13 @@
 A set of utilities to streamline configuring and running vMix broadcasts. vMix only runs on Windows platforms, but these tools were developed on MacOS.
 
-# vMix-Scraper
+#### vMix-Scraper
 Scraper copies / updates parts of the current vMix configuration to a Google spreadsheet where it information can be used for data validations and with other forulae from other spreadsheets.
+#### vMix2File
+vMix2File copies parts of the current vMix configuration to a file in CSV format, where you can copy it to any other workbook, providing information can be used for data validations and with other forulae from other spreadsheets.
+#### tester
+stands up a mock vMix server that can be used to test the other utilities
+
+# mVixScraper
 
 First, start vMix
 
