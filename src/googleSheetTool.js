@@ -2,6 +2,9 @@ const { GoogleSpreadsheet } = require('google-spreadsheet');
 const secrets = require('../credentials.json')
 const vMix = require('./vMixHelper.js')
 
+//
+// https://docs.google.com/spreadsheets/d/1Os6rYbRHxcZH28VbXHibOhYAwsQ-j6630tCd1Mc0tYU
+//
 
 async function updateGSheet(sheetGUID,  vMixCfg, callback){
 const gSheet = new GoogleSpreadsheet(sheetGUID);
@@ -31,11 +34,9 @@ const gSheet = new GoogleSpreadsheet(sheetGUID);
 		return
 	}
 
-	const scenesSheet  = gSheet.sheetsByIndex[0]; // or sheetsByIndex[] or doc.sheetsById[id] or doc.sheetsByTitle[title]
-	const vmixcfgSheet = gSheet.sheetsByIndex[1];
+	const vmixcfgSheet = gSheet.sheetsByIndex[0];
 	console.log("Connected to google sheet")
-	console.log("Sheet 1 is ",scenesSheet.title)
-	console.log("Sheet 2 is ",vmixcfgSheet.title)
+	console.log("Sheet name is ",vmixcfgSheet.title)
 
   var shortTitleList = [];
   for (var i = 0; i < vMixCfg.vmix.inputs[0].input.length; i++) {
@@ -51,16 +52,10 @@ const gSheet = new GoogleSpreadsheet(sheetGUID);
 	vmixcfgSheet.clear(range) 
 
 	await vmixcfgSheet.loadCells(range); // loads range of cells into local cache - DOES NOT RETURN THE CELLS
-	//console.log("cell stats = ",vmixcfgSheet.cellStats); // total cells, loaded, how many non-empty
-	const a = vmixcfgSheet.getCell(0, 0); // access cells using a zero-based index
-	const b = vmixcfgSheet.getCell(0, 1); // access cells using a zero-based index
-	a.value = "shortTitle"
-	b.value = "inputNumber"
-//	console.log(a.value, b.value )
 
 	for (i = 0 ; i < max ; i++){
-		const a = vmixcfgSheet.getCell(i+1, 0); // access cells using a zero-based index
-		const b = vmixcfgSheet.getCell(i+1, 1); // access cells using a zero-based index
+		const a = vmixcfgSheet.getCell(i, 0); // access cells using a zero-based index
+		const b = vmixcfgSheet.getCell(i, 1); // access cells using a zero-based index
 //		console.log(i,a.value, b.value, sortedList[i] )
 		a.value = sortedList[i][0]
 		b.value = sortedList[i][1]
@@ -73,20 +68,18 @@ const gSheet = new GoogleSpreadsheet(sheetGUID);
 
 function selfTest(){
 	if (process.argv.length != 3){
-		console.log ("Usage: npm start <URL of your VMix spreadsheet>")
+		console.log ("Usage: npm start <URL of your vMix spreadsheet>")
 		console.log ("Your google sheet must be 'shared' with the following email address:");
 		console.log ("\t"+secrets.client_email)
 		return;
 	}
 	const words = process.argv[2].split('/');
-	if (words.length != 7){
+	if (words.length < 6){
 		console.log ("Did not recognize that URL. Copy/Paste it from your browser. It should look similar to this");
-		console.log ("https://docs.google.com/spreadsheets/d/1abwU_-dk4q9w_PWe17Z87_8Tvd-c9RtQIuwJrImxNxQ/edit#gid=0");
+		console.log ("https://https://docs.google.com/spreadsheets/d/1Os6rYbRHxcZH28VbXHibOhYAwsQ-j6630tCd1Mc0tYU/edit#gid=0");
 		return;
 	}
 
-
-	
 	var sheetID = words[5];
 	console.log("Connecting to vMix...");
 	vMix.connect( (err,ctx)=> {
