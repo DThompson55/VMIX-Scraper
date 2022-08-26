@@ -67,13 +67,17 @@ const gSheet = new GoogleSpreadsheet(sheetGUID);
 }
 
 function selfTest(){
+	var wordArg = 2;
+	if (process.argv.length == 4){
+		wordArg = 3;
+	} else
 	if (process.argv.length != 3){
 		console.log ("Usage: npm start <URL of your vMix spreadsheet>")
 		console.log ("Your google sheet must be 'shared' with the following email address:");
 		console.log ("\t"+secrets.client_email)
 		return;
 	}
-	const words = process.argv[2].split('/');
+	const words = process.argv[wordArg].split('/');
 	if (words.length < 6){
 		console.log ("Did not recognize that URL. Copy/Paste it from your browser. It should look similar to this");
 		console.log ("https://https://docs.google.com/spreadsheets/d/1Os6rYbRHxcZH28VbXHibOhYAwsQ-j6630tCd1Mc0tYU/edit#gid=0");
