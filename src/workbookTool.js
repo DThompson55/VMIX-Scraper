@@ -1,7 +1,7 @@
 const Excel = require('exceljs');
 const workbook = new Excel.Workbook();
 
-const verbose = false;
+const verbose = process.env["VMIX_VERBOSE"] || false;
 
 //tester();
 

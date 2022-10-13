@@ -41,6 +41,7 @@ const gSheet = new GoogleSpreadsheet(sheetGUID);
   var shortTitleList = [];
   for (var i = 0; i < vMixCfg.vmix.inputs[0].input.length; i++) {
       let row = vMixCfg.vmix.inputs[0].input[i].$;
+      if (vMixCfg.vmix.inputs[0].input[i].$.type != "Audio")
       shortTitleList.push([vMixCfg.vmix.inputs[0].input[i].$.shortTitle,row.number])
   }
 
