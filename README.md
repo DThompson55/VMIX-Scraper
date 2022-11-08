@@ -1,36 +1,40 @@
-A set of utilities to streamline configuring and running vMix broadcasts. vMix only runs on Windows platforms, but these tools were developed on MacOS.
+## A set of utilities to streamline configuring and running vMix broadcasts. vMix only runs on Windows platforms, but these tools were developed on MacOS.
 
 ### vMix-Scraper
 Scraper copies / updates parts of the current vMix configuration to a Google spreadsheet where it information can be used for data validations and with other forulae from other spreadsheets.
-### vMix2File
-vMix2File copies parts of the current vMix configuration to a file in CSV format, where you can copy it to any other workbook, providing information can be used for data validations and with other forulae from other spreadsheets.
 ### tester
-stands up a mock vMix server that can be used to test the other utilities
-
-# mVixScraper
+Stands up a mock vMix server that can be used to test the other utilities
 
 vmix-scraper gathers the 'input shortTitle' and 'input number' entries from the vMix configuration running on the host machine and writes them to a google spreadsheet. This provides validation data for entries from other spreadsheets and dropdown lists of the available VMIX inputs. It also provides VLOOKUP data ensuring that input numbers always matches the selected shortName. This is especially important if you move vMix inputs around, which will renumber them.
+
+You should run vMixScraper any time you add a new vMix input, that way the google sheet will always match the names and numbers of the vMix inputs.
 
 ### Steps for using vmix-scraper
 1. Make sure vMix is running
 2. Find VMIX-Scraper on the desktop, and double click to run
 
-### Alternative Steps for using vmix-scraper
-1. Make sure vMix is running
-2. Open a Windows command line prompt (cmd)
-3. Type “cd <your install directory>” (cd \users\VirtualTeam\vmix-scraper)
-4. Type scrape 
-or 
-4. Type npm run 2googlesheet <url of your google sheet>
-
 ---
-## Advanced
+## The really technical stuff
 
-### Steps for configuring vmix-scraper
-1. Start vMix (or alternatively the tester packaged with these utilities)
-2. In a browser, open your google drive and share the reference data google sheet with this email address vmix-scraper-service-account@vmix-scraper.iam.gserviceaccount.com
-3. In a browser, open the current google sheet holding the reference data, and copy (ctrl-c) its URL
-4. Open <your install directory>\scraper.bat” in a text editor 
+### Prereqs
+1. Obivously you need Git, so make sure you have that installed.
+2. Download and install npm
+3. A google docs account
+4. If you don't already have one, create a Google Cloud Account
+5. Create Google API Service Account in the Google Cloud Console, under the APIs tab. Give it permission to read and write google sheets. Save the service account key to a text file named credentials.json
+
+
+### Install
+1. Clone this git repo
+2. Move to the cloned folder and run npm install.
+3. Move your credentials.json file to the cloned folder.
+4. Copy these two google sheets to your google docs, the template and camera shot sheets.
+https://drive.google.com/drive/folders/1V9hYDnMyMsQzqDJ8s7YyZgx8tdY-K2lZ?usp=sharing
+
+### Configure
+1. Grant permission for your google service account to access the reference data sheet. In a browser, open your google drive and share the reference data google sheet with this your service account's email address.
+2. In a browser, open the google sheet holding the reference data, and copy (ctrl-c) its URL
+3. Open <your install directory>\scraper.bat” in a text editor 
 	Replace the existing document URL with the one you just copied in step3
 	Close the text editor
 
@@ -45,54 +49,19 @@ or
 
 ### Configurating the 'Camera Shot Pulldown' to sync with reference data
 1) In the 'Camera Shot Pulldown' highlight all columns and delete them
-2) Enter this formulat in cell A1 =IMPORTRANGE("https://docs.google.com/spreadsheets/d/1Os6rYbRHxcZH28VbXHibOhYAwsQ-j6630tCd1Mc0tYU","$A:$B")
-	where the URL is the URL of the reference data spreadsheet (see step 3 of Steps for configuring vmix-scraper)
+2) Enter this formulat in cell A1 =IMPORTRANGE("<URL>","$A:$B")
+	where the URL is the URL of the reference data spreadsheet 
 
 ### Configuring Windows shortcut
-1) Configure a windows shortcut...
+1) Configure a windows shortcut... Normally, I create a windows shortcut of the scraper.bat file and put it on my desktop. Then any time someone wants to sync with vMix they just double click that shortcut.
 
-
-# mVixScraper
+# Running VixScraper
 
 First, start vMix
 
 vmix-scraper gathers the 'input shortTitle' and 'input number' entries from the vMix configuration running on the host machine and writes them to a local file. This provides validation data for entries from other spreadsheets and dropdown lists of the available VMIX inputs. It also provides VLOOKUP data ensuring that input numbers always matches the selected shortName. This is especially important if you move vMix inputs around, which will renumber them.
 
-### Steps for using vmix2file
-1. Make sure vMix is running
-2. Find VMIX-2File on the desktop, and double click to run
-
-### Alternative Steps for using vmix-scraper
-1. Make sure vMix is running
-2. Open a Windows command line prompt (cmd)
-3. Type “cd <your install directory>” (cd \users\VirtualTeam\vmix-scraper)
-4. Type vmix2file <filename>
-	where filename is the output file where you want to store vMix data in CSV format
-alternatively
-4. Type npm run 2file <filename>
-	
----
-## Advanced
-
-### Steps for configuring vmix2File
-1. Start vMix (or alternatively the tester packaged with these utilities)
-4. Open <your install directory>\scrape2File.bat” in a text editor, change the output file name to one of your choosing
-	Close the text editor
-
-### Configuring data validation in a Service Plan
-see instructions for vmix-scraper
-
-### Configuring camera shot numbers in a Service Plan
-see instructions for vmix-scraper
-
-### Configurating the 'Camera Shot Pulldown' to sync with reference data
-see instructions for vmix-scraper
-
-### Configuring Windows shortcut
-Configure a windows shortcut...
-
 ----
-
 
 # tester - npm test 
 
